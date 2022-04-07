@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "../../dist",
+    "strict": true,
+    "sourceMap": false,
+    "removeComments": true,
+    "types": ["tampermonkey"],
+    "target": "ESNext",
+    "module": "CommonJS"
+  }
+}

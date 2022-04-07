@@ -1,0 +1,127 @@
+# 默认参数
+# EF 会根据 html.lang.startWith("en") 来做默认匹配, 这意味着我不需要每个英文页面都要加入到 profile 中
+default:
+  name: 'Default'
+  # 遍历根节点选择器
+  rootSelector:
+    - body
+  # 页面添加样式
+  style:
+    - eft:hover efth { color:#FFF }
+    - eft:hover efth { background-color:#0009 }
+  # 刷新页面时机
+  strategies:
+    - timeout|0.3 # 在 0.3 秒后从 rootSelector 遍历页面元素
+    - timeout|2 # 在 2.0 秒后从 rootSelector 遍历页面元素
+    - interval|5 # 每 5.0 秒从 rootSelector 遍历页面元素
+# EF 默认执行在所有 lang="en" 的页面上
+# 当页面 URL 包含下面的字符串时, EF 主动执行, 无视 html.lang 属性
+sites:
+  - chrome.google.com
+  - superuser.com
+  - docs.swift.org
+  - leetcode.com
+  - mail.google.com
+  - stackoverflow.com
+  - lagou.com
+  - yaml.org
+  - zhihu.com
+  - translate.google.com
+  - www.zhipin.com
+# 当页面 URL 包含哪些字符串时, 不执行 EF, 即使该页面已经存在于 sites 中
+sitesExcluded:
+  # - google.com/search
+
+# 哪些页面有自己的特殊规则
+# 特殊规则会和 default 进行合并操作
+siteSpecificConfig:
+  - name: Google
+    applyTo:
+      - www.google.com/search
+    rootSelector:
+      - '#rcnt'
+
+  - name: Google Translate
+    applyTo:
+      - translate.google.com
+    rootSelector:
+      - .a2Icud
+
+  # 规则名称
+  - name: __ProfileName__
+    # 规则应用页面
+    applyTo:
+      - www.__EF_foo__.com
+      - www.__EF_bar__.com
+    # 不需要 EF 检查的类名
+    notMatchClassName:
+      - _EF_a_class_name_
+    # 针对某个选择器制定特殊的规则
+    selectorSpecificStrategy:
+      - selector: '#anyselector'
+        strategy: interval|0.5
+    style:
+      - 'eft:hover efth { font-weight: bold; }'
+      - 'eft:hover efth { text-shadow: 0 0 2px white; }'
+      - 'eft:hover efth { color: #FFFF }'
+      - 'eft:hover { color: #FFF9 }'
+
+  - name: Wikipedia
+    applyTo:
+      - en.wikipedia.org
+      - zh.wikipedia.org
+    style:
+      - 'eft:hover efth { text-shadow: 0 0 2px #888; }'
+      - 'eft:hover efth { font-weight: bold }'
+      - 'eft:hover efth { color: #FFFF }'
+      - 'eft:hover { color: #FFF9 }'
+    strategies:
+      - timeout|0.2
+      - timeout|2
+    notMatchClassName:
+      - vector-menu-content-list
+  - name: Instagram
+    applyTo:
+      - www.instagram.com
+    rootSelector:
+      - [role="main"]
+    strategies:
+      - immediately
+      - interval|2
+  - name: Reddit
+    applyTo:
+      - www.reddit.com
+    style:
+      - h1,h2,h3,h4,h5,._2ZjElFi3ORaU3VPrwmdoCp {overflow:visible !important;}
+      - 'eft:hover efth {font-weight: 900;}'
+      - eft:hover efth {color:#FFF;}
+    strategies:
+      - timeout|0.9
+      - timeout|2.1
+      - interval|4.4
+    rootSelector:
+      - .uI_hDmU5GSiudtABRz_37
+      - ._31AVRNJbVMh2DUFRrpCQcD.RffBqG1xCvuy1r49wYhLr
+      - ._1FUNcfOeszr8eruqLxCMcR._3ZmEUUvrdj4LXpXC9XZdN7
+      - ._3JDs8KEQIXSMn1bTF2ZqJ_
+      - ._2L5G9B5yaoqW3IegiYN-FL
+      - ._1gVVmSnHZpkUgVShsn7-ua
+      - .rpBJOHq2PR60pnwJlUyP0
+  - name: Youtube
+    applyTo:
+      - www.youtube.com
+    rootSelector:
+      - body
+    strategies:
+      - immediately
+      - timeout|2
+      - interval|5
+    style:
+      - h1,h2,h3,h4,h5 {overflow:visible;}
+      - eft:hover efth {color:#FFF}
+    selectorSpecificStrategy:
+      # 针对频繁变化的字幕
+      - selector: '#ytp-caption-window-container'
+        strategy: interval|0.5
+    notMatchTagName:
+      - iron-iconset-svg

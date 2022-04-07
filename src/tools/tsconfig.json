@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "../../dist/tools/",
+    "strict": false,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "target": "ESNext",
+    "module": "CommonJS"
+  }
+}

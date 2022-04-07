@@ -1,0 +1,36 @@
+{
+  "name": "ef_server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/js-yaml": "*",
+    "@types/less": "*",
+    "@types/node": "*",
+    "@types/tampermonkey": "*",
+    "js-yaml": "*",
+    "less": "*",
+    "nodemon": "*",
+    "npm-run-all": "*",
+    "prettier": "*",
+    "typescript": "*"
+  },
+  "scripts": {
+    "_ts_backend": "tsc -p ./src/backend",
+    "_ts_backend_dev": "tsc -w -p ./src/backend",
+    "_ts_page": "tsc -p ./src/page",
+    "_ts_page_dev": "tsc -w -p ./src/page",
+    "_ts_tools": "tsc -p ./src/tools",
+    "_ts_tools_dev": "tsc -w -p ./src/tools",
+    "_w_dict": "node ./dist/tools/yaml2json.js dict ogrly",
+    "_w_entry": "node ./dist/tools/gen_entry.js Desktop",
+    "_w_profile": "node ./dist/tools/yaml2json.js profile f",
+    "_w_style": "node ./dist/tools/less2css.js dev",
+    "format": "prettier ./**/*.ts ./**/*.less ./**/*.yaml ./**/*.json -w",
+    "serve": "node ./dist/server/server.js -q",
+    "serve_dev": "nodemon ./dist/server/server.js -q",
+    "ts_build": "run-p _ts_backend _ts_page _ts_tools",
+    "ts_build_dev": "run-p _ts_backend_dev _ts_page_dev _ts_tools_dev",
+    "w_tools": "run-p _w_dict _w_profile _w_style _w_entry"
+  }
+}

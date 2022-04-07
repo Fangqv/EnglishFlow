@@ -1,0 +1,20 @@
+# https://prettier.io/docs/en/options.html
+# https://prettier.io/docs/en/configuration.html
+$schema: http://json.schemastore.org/prettierrc
+arrowParens: 'avoid'
+bracketSpacing: true
+endOfLine: 'lf'
+jsxSingleQuote: true
+printWidth: 100
+semi: false
+singleQuote: true
+tabWidth: 2
+trailingComma: 'all'
+useTabs: false
+overrides:
+  - files:
+      - '.vscode/**/*.json'
+    options:
+      parser: 'json5'
+      quoteProps: 'preserve'
+      singleQuote: false
